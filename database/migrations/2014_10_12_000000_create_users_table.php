@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('role', ['Pengurus Pondok', 'Pengurus Asrama', 'Ketua Kamar']);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
