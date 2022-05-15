@@ -1,7 +1,8 @@
 <?php
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,7 @@ Route::prefix('dashboard')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/rooms', [App\Http\Controllers\RoomController::class, 'index']);
+
+Route::get('/rooms', [App\Http\Controllers\RoomController::class, 'create']);
