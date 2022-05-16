@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Tambah Pengguna Akun
+Edit Pengguna Akun
 @endsection
 @section('main-content')
 <div class="main-content">
@@ -13,11 +13,11 @@ Tambah Pengguna Akun
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('rooms.index') }}">Manajemen Kamar</a></div>
-                <div class="breadcrumb-item">Tambah Kamar</div>
+                <div class="breadcrumb-item">Edit Kamar</div>
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Tambah Kamar</h2>
+            <h2 class="section-title">Edit Kamar</h2>
             <p class="section-lead">
                 Yang memiliki tanda <span class="text-danger">*</span> wajib diisi!
             </p>
@@ -36,10 +36,11 @@ Tambah Pengguna Akun
                 <div class="col-12 col-md-12 col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Tambah Kamar</h4>
+                            <h4>Edit Kamar</h4>
                         </div>
-                        <form method="POST" action="{{ route('rooms.store') }}" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('rooms.update', $editRoom->id) }}" class="needs-validation" novalidate="" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 @if ($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -57,7 +58,7 @@ Tambah Pengguna Akun
                                 @endif
                                 <div class="form-group">
                                     <label for="name">Nama <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukan nama kamar" value="{{ old('name') }}" required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukan Nama Anda" value="{{ $editRoom->name }}" required>
                                     @if (count($errors) > 0)
                                         @error('name')
                                             <div class="invalid-feedback">
@@ -94,7 +95,7 @@ Tambah Pengguna Akun
                                 <div class="text-right">
                                     <div class="form-group">
                                         <label for=""></label>
-                                        <button class="btn btn-primary">Buat</button>
+                                        <button class="btn btn-primary">Edit</button>
                                     </div>
                                 </div>
                             </div>

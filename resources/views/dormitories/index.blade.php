@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Pengguna Akun
+Manajemen Asrama
 @endsection
 @section('style')
 <link rel="stylesheet" href="{{ asset('backend/assets/css/datatables/dataTables.bootstrap4.min.css') }}">
@@ -10,20 +10,20 @@ Pengguna Akun
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Manajemen Kamar</h1>
+            <h1>Manajemen Asrama</h1>
             <div class="section-header-button">
-                <a href="{{ route('rooms.create') }}" class="btn btn-primary">Tambah Kamar</a>
+                <a href="{{ route('dormitories.create') }}" class="btn btn-primary">Tambah Asrama</a>
             </div>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('rooms.index') }}">Manajemen Kamar</a></div>
-                <div class="breadcrumb-item">Tabel Kamar</div>
+                <div class="breadcrumb-item"><a href="{{ route('dormitories.index') }}">Manajemen Asrama</a></div>
+                <div class="breadcrumb-item">Tabel Asrama</div>
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Data Kamar</h2>
+            <h2 class="section-title">Data Asrama</h2>
             <p class="section-lead">
-                Kamu dapat mengelola data Kamar disini
+                Kamu dapat mengelola data Asrama disini!
             </p>
 
             @if (Session::has('success'))
@@ -40,7 +40,7 @@ Pengguna Akun
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header border-bottom">
-                            <h4>Kamar</h4>
+                            <h4>Asrama</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -48,9 +48,8 @@ Pengguna Akun
                                   <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kamar</th>
-                                        <th>ID Ketua Kamar</th>
-                                        <th>ID Asrama</th>
+                                        <th>Nama</th>
+                                        <th>ID Pengurus</th>
                                         <th>Aksi</th>
                                     </tr>
                                   </thead>
@@ -58,22 +57,21 @@ Pengguna Akun
                                       @php
                                           $no = 1;
                                       @endphp
-                                    @forelse ($rooms as $room)
+                                    @forelse ($dormitories as $dormitory)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $room->name }}</td>
-                                        <td>{{ $room->user_id }}</td>
-                                        <td>{{ $room->dormitory_id }}</td>
+                                        <td>{{ $dormitory->name }}</td>
+                                        <td>{{ $dormitory->user_id }}</td>
                                         <td>
-                                            <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                                            <a href="{{ route('dormitories.edit', $dormitory->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                             {{-- Hapus Data --}}
-                                            <a href="{{ route('rooms.destroy', $room->id) }}" class="btn btn-danger btn-sm"
+                                            <a href="{{ route('dormitories.destroy', $dormitory->id) }}" class="btn btn-danger btn-sm"
                                             data-toggle="tooltip" data-original-title="Hapus Data"
-                                            data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus kamar bernama: <b>{{ $room->name }}</b>?"
+                                            data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus asrama bernama: <b>{{ $dormitory->name }}</b>?"
                                             data-confirm-yes="event.preventDefault();
-                                            document.getElementById('delete-portofolio-{{ $room->id }}').submit();"
+                                            document.getElementById('delete-portofolio-{{ $dormitory->id }}').submit();"
                                             ><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                            <form id="delete-portofolio-{{ $room->id }}" action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-portofolio-{{ $dormitory->id }}" action="{{ route('dormitories.destroy', $dormitory->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('delete')
                                             </form>
@@ -81,7 +79,7 @@ Pengguna Akun
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Room does not exist.</td>
+                                        <td colspan="7" class="text-center">Dormitory does not exist.</td>
                                     </tr>
                                     @endforelse
                                   </tbody>
