@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Edit Pengguna Akun
+Edit Kamar
 @endsection
 @section('main-content')
 <div class="main-content">
@@ -57,7 +57,7 @@ Edit Pengguna Akun
                                     </div>
                                 @endif
                                 <div class="form-group">
-                                    <label for="name">Nama <span class="text-danger">*</span></label>
+                                    <label for="name">Nama Kamar <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukan Nama Anda" value="{{ $editRoom->name }}" required>
                                     @if (count($errors) > 0)
                                         @error('name')
@@ -74,7 +74,7 @@ Edit Pengguna Akun
 
                                 <div class="form-group">
                                     <label for="id_user" class="form-label">Asrama <span class="text-danger">*</span></label><br>
-                                    <select class="form-select" aria-label="Default select example" name="dormitory_id">
+                                    <select class="form-control" aria-label="Default select example" name="dormitory_id">
                                         <option selected>Pilih Asrama</option>
                                         @foreach ($dormitories as $dormitory)
                                             <option value="{{ $dormitory->id }}">{{ $dormitory->name }}</option>
@@ -84,7 +84,7 @@ Edit Pengguna Akun
 
                                 <div class="form-group">
                                     <label for="id_user" class="form-label">Ketua <span class="text-danger">*</span></label><br>
-                                    <select class="form-select" aria-label="Default select example" name="user_id">
+                                    <select class="form-control" aria-label="Default select example" name="user_id">
                                         <option selected>Pilih Ketua Kamar</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>

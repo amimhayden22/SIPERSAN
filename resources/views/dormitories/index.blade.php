@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Manajemen Asrama
+Data Asrama
 @endsection
 @section('style')
 <link rel="stylesheet" href="{{ asset('backend/assets/css/datatables/dataTables.bootstrap4.min.css') }}">
@@ -48,8 +48,8 @@ Manajemen Asrama
                                   <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>ID Pengurus</th>
+                                        <th>Nama Asrama</th>
+                                        <th>Pengurus</th>
                                         <th>Aksi</th>
                                     </tr>
                                   </thead>

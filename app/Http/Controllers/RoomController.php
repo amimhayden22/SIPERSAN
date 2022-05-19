@@ -22,10 +22,7 @@ class RoomController extends Controller
         $dormitories = Dormitory::all();
         $users = User::all();
 
-        return view('rooms.create', [
-            'dormitories' => $dormitories,
-            'users' => $users
-        ]);
+        return view('rooms.create', compact('dormitories', 'users'));
     }
 
     public function store(Request $request)
@@ -43,17 +40,6 @@ class RoomController extends Controller
         ]);
 
         return redirect()->route('rooms.index')->with(['success' => 'Add data successfully']);
-    }
-
-    //Nggak paham dipakai dimana
-    public function show($id)
-    {
-        $showDormitories = Dormitory::find($id);
-        if (is_null($showDormitories)) {
-            return abort(404);
-        }
-
-        return view('update-profile', compact('showDormitories'));
     }
 
     public function edit($id)

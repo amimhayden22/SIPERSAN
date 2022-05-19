@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Pengguna Akun
+Data Kamar
 @endsection
 @section('style')
 <link rel="stylesheet" href="{{ asset('backend/assets/css/datatables/dataTables.bootstrap4.min.css') }}">
@@ -49,8 +49,8 @@ Pengguna Akun
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Kamar</th>
-                                        <th>ID Ketua Kamar</th>
-                                        <th>ID Asrama</th>
+                                        <th>Asrama</th>
+                                        <th>Ketua Kamar</th>
                                         <th>Aksi</th>
                                     </tr>
                                   </thead>
@@ -62,8 +62,8 @@ Pengguna Akun
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $room->name }}</td>
-                                        <td>{{ $room->user_id }}</td>
                                         <td>{{ $room->dormitory_id }}</td>
+                                        <td>{{ $room->user_id}}</td>
                                         <td>
                                             <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                             {{-- Hapus Data --}}

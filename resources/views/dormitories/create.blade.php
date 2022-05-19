@@ -56,7 +56,7 @@ Tambah Asrama
                                     </div>
                                 @endif
                                 <div class="form-group">
-                                    <label for="name">Nama <span class="text-danger">*</span></label>
+                                    <label for="name">Nama Asrama <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukan nama asrama" value="{{ old('name') }}" required>
                                     @if (count($errors) > 0)
                                         @error('name')
@@ -72,11 +72,11 @@ Tambah Asrama
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="id_user" class="form-label">Id User <span class="text-danger">*</span></label><br>
-                                    <select class="form-select" aria-label="Default select example" name="user_id">
-                                        <option selected>Pilih Id Ketua Kamar</option>
+                                    <label for="id_user" class="form-label">Pengurus <span class="text-danger">*</span></label><br>
+                                    <select class="form-control" aria-label="Default select example" name="user_id">
+                                        <option selected>Pilih Pengurus Asrama</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->id }}</option>
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

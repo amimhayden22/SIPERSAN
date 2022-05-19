@@ -10,18 +10,16 @@ class DormitoryController extends Controller
 {
     public function index()
     {
-        return view('dormitories.index', [
-            'dormitories' => Dormitory::all()
-        ]);
+        $dormitories = Dormitory::all();
+
+        return view('dormitories.index', compact('dormitories'));
     }
 
     public function create()
     {
-        $users = User::all();
+        $users = User::where('role', 'Pengurus Asrama')->get();
 
-        return view('dormitories.create', [
-            'users' => $users
-        ]);
+        return view('dormitories.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -39,21 +37,10 @@ class DormitoryController extends Controller
         return redirect()->route('dormitories.index')->with(['success' => 'Add data successfully']);
     }
 
-    //Nggak paham dipakai dimana
-    public function show($id)
-    {
-        $showDormitories = Dormitory::find($id);
-        if (is_null($showDormitories)) {
-            return abort(404);
-        }
-
-        return view('update-profile', compact('showDormitories'));
-    }
-
     public function edit($id)
     {
         $editDormitory = Dormitory::find($id);
-        $users = User::all();
+        $users = User::where('role', 'Pengurus Asrama')->get();
 
         if (is_null($editDormitory)) {
             return abort(404);

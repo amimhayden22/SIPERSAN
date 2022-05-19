@@ -57,7 +57,7 @@ Edit Asrama
                                     </div>
                                 @endif
                                 <div class="form-group">
-                                    <label for="name">Nama <span class="text-danger">*</span></label>
+                                    <label for="name">Nama Asrama <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Masukan Nama Anda" value="{{ $editDormitory->name }}" required>
                                     @if (count($errors) > 0)
                                         @error('name')
@@ -73,11 +73,11 @@ Edit Asrama
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="user_id">Id Pengurus <span class="text-danger">*</span></label><br>
-                                    <select class="form-select" aria-label="Default select example" name="user_id">
+                                    <label for="user_id">Pengurus <span class="text-danger">*</span></label><br>
+                                    <select class="form-control" aria-label="Default select example" name="user_id">
                                         <option selected>{{ $editDormitory->user_id }}</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->id }}</option>
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
