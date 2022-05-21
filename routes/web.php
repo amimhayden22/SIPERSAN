@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(
+    ['register' => false]
+);
 Route::get('/', function () {
     return redirect('login');
 });
@@ -23,7 +26,6 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('users', UserController::class);
 });
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
