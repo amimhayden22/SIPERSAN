@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Dormitory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
