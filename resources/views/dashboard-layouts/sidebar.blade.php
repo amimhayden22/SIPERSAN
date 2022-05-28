@@ -2,36 +2,31 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="{{ url('dashboard') }}">
-                <img class="img-fluid" src="{{ asset('backend/assets/img/logo/red-logo.png') }}" width="120" alt="Sadasa Red Logo">
+                SIPERSAN
             </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ url('dashboard') }}">
-                <img src="{{ asset('backend/assets/img/logo/logo-sadasa-circle.png') }}" alt="Logo Circle" width="50" class="img-fluid">
+                SIPS
             </a>
         </div>
-        <ul class="sidebar-menu">
-            <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ Request::path() === 'dashboard' ? 'active' : '' }}">
-                <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li>
-            <li class="menu-header">Menu</li>
-            <li class="{{ (request()->is('dashboard/users*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-users"></i> <span>Akun Pengguna</span></a></li>
-        </ul>
         @auth
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ Request::path() === 'dashboard' ? 'active' : '' }}">
-                <a href="{{ url('dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+            <li class="nav-item dropdown {{ (request()->is('dashboard')) ? 'active' : '' }}">
+                <a href="{{ url('dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dasbor</span></a>
             </li>
             <li class="menu-header">Menu</li>
-            <!-- <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice"></i> <span>Accounts</span></a>
-                <ul class="dropdown-menu" style="{{ Request::path() === 'dashboard/accounts' ? 'display: block;' : 'display: none;' }}">
-                    <li><a class="nav-link" href="#">Accounts Umum</a></li>
+            <li class="{{ (request()->is('dashboard/dormitories*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('dormitories.index') }}"><i class="fas fa-building"></i> <span>Manajemen Asrama</span></a></li>
+            <li class="{{ (request()->is('dashboard/rooms*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('rooms.index') }}"><i class="fas fa-bed"></i> <span>Manajemen Kamar</span></a></li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Manajemen Santri</span></a>
+                <ul class="dropdown-menu" style="{{  (request()->is('dashboard/students*')) ? 'display: block;' : 'display: none;' }}">
+                    <li><a class="nav-link" href="#">Tabel Santri</a></li>
+                    <li><a class="nav-link" href="#">Membuat Izin</a></li>
                 </ul>
-            </li> -->
-            <li class="{{ (request()->is('dashboard/clients*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('clients.index') }}"><i class="fas fa-users"></i> <span>Client</span></a></li>
+            </li>
+            <li class="{{ (request()->is('dashboard/users*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user"></i> <span>Manajemen User</span></a></li>
         </ul>
         <div class="p-3 hide-sidebar-mini">
             <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split"

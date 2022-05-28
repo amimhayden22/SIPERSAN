@@ -63,7 +63,7 @@
   outline: none; }
 
 a {
-  color: #dc0a17;
+  color: #47c363;
   font-weight: 500;
   transition: all .5s;
   -webkit-transition: all .5s;
@@ -648,7 +648,7 @@ select.form-control:not([size]):not([multiple]) {
     .card .card-header h4 {
       font-size: 16px;
       line-height: 28px;
-      color: #dc0a17;
+      color: #47c363;
       padding-right: 10px;
       margin-bottom: 0; }
       .card .card-header h4 + .card-header-action,
@@ -1537,7 +1537,7 @@ h6 .badge {
   left: 0;
   width: 100%;
   height: 115px;
-  background-color: #dc0a17;
+  background-color: #47c363;
   z-index: -1; }
 
 .navbar {
@@ -2395,7 +2395,7 @@ pre {
       border-radius: 5px;
       height: 8px;
       width: 30px;
-      background-color: #dc0a17;
+      background-color: #47c363;
       display: inline-block;
       float: left;
       margin-top: 6px;
@@ -2814,7 +2814,7 @@ body.layout-3 .main-footer {
       .main-sidebar .sidebar-menu li a:hover {
         background-color: #f8fafb; }
     .main-sidebar .sidebar-menu li.active a {
-      color: #dc0a17;
+      color: #47c363;
       font-weight: 600;
       background-color: #f8fafb; }
       .main-sidebar .sidebar-menu li.active a.has-dropdown:after {
@@ -2848,10 +2848,10 @@ body.layout-3 .main-footer {
         padding-left: 65px;
         font-weight: 400; }
         .main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
-          color: #dc0a17;
+          color: #47c363;
           background-color: inherit; }
       .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
-        color: #dc0a17;
+        color: #47c363;
         font-weight: 600; }
       .main-sidebar .sidebar-menu li ul.dropdown-menu li a i {
         margin-top: 1px;
