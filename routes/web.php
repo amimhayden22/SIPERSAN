@@ -28,6 +28,8 @@ Route::get('/', function () {
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::put('users/update/profile/{user}', [UserController::class, 'updateProfile'])->name('users.update-profile');
+
     Route::resource('/dormitories', DormitoryController::class);
     Route::resource('/rooms', RoomController::class);
     Route::resource('users', UserController::class);
