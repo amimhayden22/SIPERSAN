@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('dashboard-layouts.app')
 @section('title')
 Profil
 @endsection
