@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,6 @@ Route::prefix('dashboard')->group(function () {
 
     Route::resource('/dormitories', DormitoryController::class);
     Route::resource('/rooms', RoomController::class);
+    Route::resource('transactions', TransactionController::class);
     Route::resource('users', UserController::class);
 });
