@@ -22,7 +22,7 @@ return new class extends Migration
                   ->cascadeOnDelete();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->date('due_date')->nullable();
+            $table->date('return_date')->nullable();
             $table->text('description');
             $table->enum('status', ['Tidak Disetujui', 'Disetujui'])->nullable();;
             $table->timestamps();

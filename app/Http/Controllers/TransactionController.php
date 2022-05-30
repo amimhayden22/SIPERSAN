@@ -100,7 +100,7 @@ class TransactionController extends Controller
             'student_id'    => 'required|not_in:0',
             'start_date'    => 'date',
             'end_date'      => 'date',
-            'due_date'      => 'date',
+            'return_date'      => 'date',
             'description'   => 'required|string',
             'status'        => 'not_in:0',
         ]);
@@ -108,7 +108,7 @@ class TransactionController extends Controller
         $transaction->student_id    = $request->student_id;
         $transaction->start_date    = $request->start_date;
         $transaction->end_date      = $request->end_date;
-        $transaction->due_date      = $request->due_date;
+        $transaction->return_date   = $request->return_date;
         $transaction->description   = $request->description;
         $transaction->status        = $request->status;
         $transaction->save();
