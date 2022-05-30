@@ -20,12 +20,13 @@ return new class extends Migration
                   ->constrained()
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->date('due_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->text('description');
-            $table->enum('status', ['Tidak Disetujui', 'Disetujui']);
+            $table->enum('status', ['Tidak Disetujui', 'Disetujui'])->nullable();;
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
