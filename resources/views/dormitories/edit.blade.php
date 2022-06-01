@@ -75,9 +75,12 @@ Edit Asrama
                                 <div class="form-group">
                                     <label for="user_id">Pengurus <span class="text-danger">*</span></label><br>
                                     <select class="form-control" aria-label="Default select example" name="user_id">
-                                        <option selected>{{ $editDormitory->user_id }}</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @if($editDormitory->user->id == $user->id)
+                                                <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                            @else
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

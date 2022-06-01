@@ -61,7 +61,7 @@ Data Asrama
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $dormitory->name }}</td>
-                                        <td>{{ $dormitory->user_id }}</td>
+                                        <td>{{ $dormitory->user->name }}</td>
                                         <td>
                                             <a href="{{ route('dormitories.edit', $dormitory->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                             {{-- Hapus Data --}}

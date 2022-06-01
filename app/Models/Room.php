@@ -11,9 +11,19 @@ class Room extends Model
 
     protected $guarded = ['id'];
 
-    public function dormitories()
+    public function dormitory()
     {
         return $this->belongsTo(Dormitory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function student()
+    {
+        return $this->hasMany(Student::class);
     }
 
 }

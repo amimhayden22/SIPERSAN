@@ -14,8 +14,13 @@ class Dormitory extends Model
         'name',
     ];
 
-    public function rooms()
+    public function room()
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
