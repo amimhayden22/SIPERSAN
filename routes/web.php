@@ -3,6 +3,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,20 +21,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(
+    ['register' => false]
+);
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::prefix('dashboard')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::put('users/update/profile/{user}', [UserController::class, 'updateProfile'])->name('users.update-profile');
+
+    Route::resource('/dormitories', DormitoryController::class);
+    Route::resource('/rooms', RoomController::class);
+    Route::resource('/students', StudentController::class);
+    Route::resource('transactions', TransactionController::class);
     Route::resource('users', UserController::class);
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('/rooms', App\Http\Controllers\RoomController::class);
-
-Route::resource('/dormitories', App\Http\Controllers\DormitoryController::class);
-
-Route::resource('/students', App\Http\Controllers\StudentController::class);
