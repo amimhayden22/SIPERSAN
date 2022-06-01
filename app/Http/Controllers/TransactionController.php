@@ -16,7 +16,11 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('student')->orderBy('created_at')->get();
+        if(Auth::user()->role === 'Ketua Kamar'){
+            $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at')->get();
+        }else{
+            $transactions = Transaction::with('student')->orderBy('created_at')->get();
+        }
 
         return view('transactions.index', compact('transactions'));
     }
@@ -96,14 +100,24 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        $request->validate([
-            'student_id'    => 'required|not_in:0',
-            'start_date'    => 'date',
-            'end_date'      => 'date',
-            'return_date'      => 'date',
-            'description'   => 'required|string',
-            'status'        => 'not_in:0',
-        ]);
+        if(Auth::user()->role === 'Ketua Kamar'){
+            $request->validate([
+                'student_id'    => 'required|not_in:0',
+                'description'   => 'required|string',
+            ]);
+        }
+        if(Auth::user()->role === 'Pengurus Asrama'){
+            $request->validate([
+                'status'        => 'required|not_in:0',
+            ]);
+        }
+        if(Auth::user()->role === 'Pengurus Asrama'){
+            $request->validate([
+                'start_date'    => 'required|date',
+                'end_date'      => 'required|date',
+                'return_date'   => 'nullable|date',
+            ]);
+        }
 
         $transaction->student_id    = $request->student_id;
         $transaction->start_date    = $request->start_date;
