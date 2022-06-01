@@ -20,7 +20,7 @@
                 <li class="menu-header">Master Data</li>
                 <li class="{{ (request()->is('dashboard/dormitories*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('dormitories.index') }}"><i class="fas fa-building"></i> <span>Manajemen Asrama</span></a></li>
                 <li class="{{ (request()->is('dashboard/rooms*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('rooms.index') }}"><i class="fas fa-bed"></i> <span>Manajemen Kamar</span></a></li>
-                <li class="{{ (request()->is('dashboard/students*')) ? 'active' : '' }}"><a class="nav-link" href="#"><i class="fas fa-users"></i> <span>Manajemen Santri</span></a></li>
+                <li class="{{ (request()->is('dashboard/students*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('students.index') }}"><i class="fas fa-users"></i> <span>Manajemen Santri</span></a></li>
                 {{-- <li class="nav-item dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Manajemen Santri</span></a>
                     <ul class="dropdown-menu" style="{{  (request()->is('dashboard/students*')) ? 'display: block;' : 'display: none;' }}">
