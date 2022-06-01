@@ -31,3 +31,4 @@ Route::resource('/rooms', App\Http\Controllers\RoomController::class);
 
 Route::resource('/dormitories', App\Http\Controllers\DormitoryController::class);
 
+Route::resource('/students', App\Http\Controllers\StudentController::class);

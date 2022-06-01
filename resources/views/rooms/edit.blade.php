@@ -77,7 +77,11 @@ Edit Kamar
                                     <select class="form-control" aria-label="Default select example" name="dormitory_id">
                                         <option selected>Pilih Asrama</option>
                                         @foreach ($dormitories as $dormitory)
-                                            <option value="{{ $dormitory->id }}">{{ $dormitory->name }}</option>
+                                            @if($editRoom->dormitory->id == $dormitory->id)
+                                                <option value="{{ $dormitory->id }}" selected >{{ $dormitory->name }}</option>
+                                            @else
+                                                <option value="{{ $dormitory->id }}">{{ $dormitory->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -85,9 +89,12 @@ Edit Kamar
                                 <div class="form-group">
                                     <label for="id_user" class="form-label">Ketua <span class="text-danger">*</span></label><br>
                                     <select class="form-control" aria-label="Default select example" name="user_id">
-                                        <option selected>Pilih Ketua Kamar</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @if($editRoom->user->id == $user->id)
+                                                <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                            @else
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

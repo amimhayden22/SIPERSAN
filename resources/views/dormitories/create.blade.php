@@ -72,13 +72,18 @@ Tambah Asrama
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="id_user" class="form-label">Pengurus <span class="text-danger">*</span></label><br>
+                                    <label for="user_id" class="form-label">Pengurus <span class="text-danger">*</span></label><br>
                                     <select class="form-control" aria-label="Default select example" name="user_id">
                                         <option selected>Pilih Pengurus Asrama</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}" @if (old('user_id') == $user->id) {{ 'selected' }} @endif>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('user_id')
+                                        <div class="invalid-feedback" style="display: block !important;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                 
                                 <div class="text-right">

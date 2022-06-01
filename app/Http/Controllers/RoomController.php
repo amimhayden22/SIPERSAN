@@ -20,7 +20,7 @@ class RoomController extends Controller
     public function create()
     {
         $dormitories = Dormitory::all();
-        $users = User::all();
+        $users = User::where('role', 'Ketua Kamar')->get();
 
         return view('rooms.create', compact('dormitories', 'users'));
     }
@@ -82,6 +82,5 @@ class RoomController extends Controller
 
         return redirect()->back()->with(['success' => 'Delete data successfully']);
     }
-
 
 }

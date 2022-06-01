@@ -1,6 +1,6 @@
 @extends('dashboard-layouts.app')
 @section('title')
-Data Kamar
+Data Santri
 @endsection
 @section('style')
 <link rel="stylesheet" href="{{ asset('backend/assets/css/datatables/dataTables.bootstrap4.min.css') }}">
@@ -10,20 +10,20 @@ Data Kamar
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Manajemen Kamar</h1>
+            <h1>Manajemen Santri</h1>
             <div class="section-header-button">
-                <a href="{{ route('rooms.create') }}" class="btn btn-primary">Tambah Kamar</a>
+                <a href="{{ route('students.create') }}" class="btn btn-primary">Tambah Santri</a>
             </div>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('rooms.index') }}">Manajemen Kamar</a></div>
-                <div class="breadcrumb-item">Tabel Kamar</div>
+                <div class="breadcrumb-item"><a href="{{ route('students.index') }}">Manajemen Santri</a></div>
+                <div class="breadcrumb-item">Tabel Santri</div>
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Data Kamar</h2>
+            <h2 class="section-title">Data Santri</h2>
             <p class="section-lead">
-                Kamu dapat mengelola data <strong>Kamar</strong> disini!
+                Kamu dapat mengelola data <strong>Santri</strong> disini!
             </p>
 
             @if (Session::has('success'))
@@ -40,7 +40,7 @@ Data Kamar
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header border-bottom">
-                            <h4>Kamar</h4>
+                            <h4>Santri</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -48,9 +48,13 @@ Data Kamar
                                   <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kamar</th>
-                                        <th>Asrama</th>
-                                        <th>Ketua Kamar</th>
+                                        <th>NIS</th>
+                                        <th>Nama</th>
+                                        <th>Tanggal Lahir</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Wali</th>
+                                        <th>Alamat</th>
+                                        <th>Kamar</th>
                                         <th>Aksi</th>
                                     </tr>
                                   </thead>
@@ -58,22 +62,26 @@ Data Kamar
                                       @php
                                           $no = 1;
                                       @endphp
-                                    @forelse ($rooms as $room)
+                                    @forelse ($students as $student)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $room->name }}</td>
-                                        <td>{{ $room->dormitory->name }}</td>
-                                        <td>{{ $room->user->name}}</td>
+                                        <td>{{ $student->nis }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->date_of_birth}}</td>
+                                        <td>{{ $student->gender}}</td>
+                                        <td>{{ $student->wali}}</td>
+                                        <td>{{ $student->address}}</td>
+                                        <td>{{ $student->room->name}}</td>
                                         <td>
-                                            <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                                            <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                             {{-- Hapus Data --}}
-                                            <a href="{{ route('rooms.destroy', $room->id) }}" class="btn btn-danger btn-sm"
+                                            <a href="{{ route('students.destroy', $student->id) }}" class="btn btn-danger btn-sm"
                                             data-toggle="tooltip" data-original-title="Hapus Data"
-                                            data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus kamar bernama: <b>{{ $room->name }}</b>?"
+                                            data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus kamar bernama: <b>{{ $student->name }}</b>?"
                                             data-confirm-yes="event.preventDefault();
-                                            document.getElementById('delete-portofolio-{{ $room->id }}').submit();"
+                                            document.getElementById('delete-portofolio-{{ $student->id }}').submit();"
                                             ><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                            <form id="delete-portofolio-{{ $room->id }}" action="{{ route('rooms.destroy', $room->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-portofolio-{{ $student->id }}" action="{{ route('students.destroy', $student->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('delete')
                                             </form>
@@ -81,7 +89,7 @@ Data Kamar
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Room does not exist.</td>
+                                        <td colspan="7" class="text-center"> Student does not exist.</td>
                                     </tr>
                                     @endforelse
                                   </tbody>
