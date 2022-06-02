@@ -81,7 +81,7 @@ Data Izin Santri
                                     @forelse ($transactions as $transaction)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $transaction->student_id }}</td>
+                                        <td>{{ $transaction->student->name }}</td>
                                         <td>{{ $transaction->start_date }}</td>
                                         <td>{{ $transaction->end_date }}</td>
                                         <td>{{ $transaction->description }}</td>
@@ -94,7 +94,7 @@ Data Izin Santri
                                                     {{-- Hapus Data --}}
                                                     <a href="#" class="btn btn-danger btn-sm"
                                                     data-toggle="tooltip" data-original-title="Hapus Data"
-                                                    data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus izin santri bernama: <b>{{ $transaction->student_id }}</b>?"
+                                                    data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus izin santri bernama: <b>{{ $transaction->student->name }}</b>?"
                                                     data-confirm-yes="event.preventDefault();
                                                     document.getElementById('delete-portofolio-{{ $transaction->id }}').submit();"
                                                     ><i class="fas fa-trash" aria-hidden="true"></i></a>
