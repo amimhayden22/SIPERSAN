@@ -63,8 +63,8 @@ Mengajukan Izin Santri
                                     <label for="student_id">Nama Santri <span class="text-danger">*</span></label>
                                     <select class="form-control select2 @error('student_id') is-invalid @enderror" name="student_id" id="student_id" required>
                                       <option value="" disabled selected>---- Pilih Nama Santri ----</option>
-                                      @foreach ($students as $project)
-                                        <option value="{{ $project->id }}">{{ $project->title }}</option>
+                                      @foreach ($students as $student)
+                                        <option value="{{ $student->id }}">{{ $student->name }}</option>
                                       @endforeach
                                     </select>
                                     @if (count($errors) > 0)
@@ -75,7 +75,7 @@ Mengajukan Izin Santri
                                         @enderror
                                     @else
                                         <div class="invalid-feedback">
-                                            Please select your project type
+                                            Please select your student name
                                         </div>
                                     @endif
                                 </div>
