@@ -72,13 +72,13 @@ Edit Pengajuan Izin Santri
                                     <option value="" disabled selected>---- Pilih Nama Santri ----</option>
                                     @foreach ($students as $student)
                                         <option value="{{ $student->id }}"
-                                            @if ($editTransaction->student->id == $consultant->id)
+                                            @if ($editTransaction->student->id == $student->id)
                                                 selected
                                                 @if(Auth::user()->role === 'Pengurus Pondok')
                                                     disabled
                                                 @endif
                                             @endif
-                                        >{{ $student->title }}</option>
+                                        >{{ $student->name }}</option>
                                     @endforeach
                                     </select>
                                     @if (count($errors) > 0)
