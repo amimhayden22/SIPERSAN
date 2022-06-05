@@ -22,5 +22,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
+
+        $this->call(DormitorySeeder::class);
+
+        $this->call(RoomSeeder::class);
+
+        Student::factory(100)->create();
     }
 }
