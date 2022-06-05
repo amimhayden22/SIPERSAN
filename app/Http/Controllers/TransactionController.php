@@ -111,7 +111,7 @@ class TransactionController extends Controller
                 'status'        => 'required|not_in:0',
             ]);
         }
-        if(Auth::user()->role === 'Pengurus Asrama'){
+        if(Auth::user()->role === 'Pengurus Pondok'){
             $request->validate([
                 'start_date'    => 'required|date',
                 'end_date'      => 'required|date',
