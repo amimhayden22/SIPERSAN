@@ -25,8 +25,8 @@ class DormitoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'      => 'required|string|max:150',
-            'user_id'   => 'required|int|max:10',
+            'name'      => 'required|string',
+            'user_id'   => 'required|int',
         ]);
 
         Dormitory::create([
@@ -52,8 +52,8 @@ class DormitoryController extends Controller
     public function update(Request $request, Dormitory $dormitory)
     {
         $request->validate([
-            'name'      => 'required|string|max:150',
-            'user_id'   => 'required|int|max:10',
+            'name'      => 'required|string',
+            'user_id'   => 'required|int',
         ]);
 
         $dormitory->name     = $request->name;

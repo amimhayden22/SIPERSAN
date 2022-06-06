@@ -12,9 +12,8 @@ class RoomController extends Controller
 {
     public function index()
     {
-        return view('rooms.index', [
-            'rooms' => Room::all()
-        ]);
+        $rooms = Room::all();
+        return view('rooms.index', compact('rooms'));
     }
 
     public function create()
@@ -28,9 +27,9 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'           => 'required|string|max:150',
-            'dormitory_id'   => 'required|int|max:10',
-            'user_id'        => 'required|int|max:10',
+            'name'           => 'required|string',
+            'dormitory_id'   => 'required|int',
+            'user_id'        => 'required|int',
         ]);
 
         Room::create([
@@ -58,9 +57,9 @@ class RoomController extends Controller
     public function update(Request $request, Room $room)
     {
         $request->validate([
-            'name'           => 'required|string|max:150',
-            'dormitory_id'   => 'required|int|max:10',
-            'user_id'        => 'required|int|max:10',
+            'name'           => 'required|string',
+            'dormitory_id'   => 'required|int',
+            'user_id'        => 'required|int',
         ]);
 
         $room->name         = $request->name;
