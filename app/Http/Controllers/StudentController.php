@@ -26,7 +26,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'nis'           => 'required|int',
-            'name'          => 'required|strin',
+            'name'          => 'required|string',
             'address'       => 'required|string',
             'date_of_birth' => 'required',
             'gender'        => 'required',
