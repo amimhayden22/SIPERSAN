@@ -11,9 +11,8 @@ class StudentController extends Controller
 {
     public function index()
     {
-        return view('students.index', [
-            'students' => Student::all()
-        ]);
+        $students = Student::all();
+        return view('students.index', compact('students'));
     }
 
     public function create()
@@ -27,12 +26,12 @@ class StudentController extends Controller
     {
         $request->validate([
             'nis'           => 'required|int',
-            'name'          => 'required|string|max:150',
+            'name'          => 'required|string',
             'address'       => 'required|string',
             'date_of_birth' => 'required',
             'gender'        => 'required',
             'wali'          => 'required',
-            'room_id'       => 'required|int|max:10'
+            'room_id'       => 'required|int'
         ]);
 
         Student::create([
@@ -65,12 +64,12 @@ class StudentController extends Controller
     {
         $request->validate([
             'nis'           => 'required|int',
-            'name'          => 'required|string|max:150',
+            'name'          => 'required|string',
             'address'       => 'required|string',
             'date_of_birth' => 'required',
             'gender'        => 'required',
             'wali'          => 'required',
-            'room_id'       => 'required|int|max:10'
+            'room_id'       => 'required|int'
         ]);
 
         $student->nis           = $request->nis;
