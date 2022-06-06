@@ -71,12 +71,9 @@ Edit Pengajuan Izin Santri
                                     <select class="form-control select2 @error('student_id') is-invalid @enderror" name="student_id" id="student_id" required>
                                     <option value="" disabled selected>---- Pilih Nama Santri ----</option>
                                     @foreach ($students as $student)
-                                        <option value="{{ $editTransaction->student->id }}"
-                                            @if ($editTransaction->student->id == $student->id)
+                                        <option value="{{ $student->id }}"
+                                            @if ($editTransaction->student->id === $student->id)
                                                 selected
-                                                @if(Auth::user()->role === 'Pengurus Pondok')
-                                                    disabled
-                                                @endif
                                             @endif
                                         >{{ $student->name }}</option>
                                     @endforeach
