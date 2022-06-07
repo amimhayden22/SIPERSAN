@@ -114,7 +114,7 @@ Edit Pengajuan Izin Santri
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="start_date">Tanggal Mulai <span class="text-danger">*</span></label>
+                                        <label for="start_date">Tanggal Mulai Izin <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control @error('start_date') is-invalid @enderror" name="start_date" value="{{ $editTransaction->start_date }}" required>
                                         @if (count($errors) > 0)
                                             @error('start_date')
@@ -130,7 +130,7 @@ Edit Pengajuan Izin Santri
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="end_date">Tanggal Selesai <span class="text-danger">*</span></label>
+                                        <label for="end_date">Batas Waktu Izin <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control @error('end_date') is-invalid @enderror" name="end_date" value="{{ $editTransaction->end_date }}" required>
                                         @if (count($errors) > 0)
                                             @error('end_date')
@@ -146,7 +146,7 @@ Edit Pengajuan Izin Santri
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="return_date">Tanggal Pulang ke Pondok</label>
+                                        <label for="return_date">Tanggal Kembali ke Pondok</label>
                                         <input type="date" class="form-control @error('return_date') is-invalid @enderror" name="return_date" value="{{ $editTransaction->return_date }}">
                                         @if (count($errors) > 0)
                                             @error('return_date')

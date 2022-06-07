@@ -66,10 +66,10 @@ Data Izin Santri
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Santri</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
+                                        <th>Tanggal Mulai Izin</th>
+                                        <th>Batas Waktu Izin</th>
                                         <th>Alasan Izin</th>
-                                        <th>Batas Waktu Pulang Santri</th>
+                                        <th>Tanggal Kembali ke Pondok</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
