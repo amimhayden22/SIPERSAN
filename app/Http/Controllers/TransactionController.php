@@ -19,8 +19,12 @@ class TransactionController extends Controller
     {
         if(Auth::user()->role === 'Ketua Kamar'){
             $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at')->get();
-        }else{
+        }
+        if(Auth::user()->role === 'Pengurus Asrama'){
             $transactions = Transaction::with('student')->orderBy('created_at')->get();
+        }
+        if(Auth::user()->role === 'Pengurus Pondok'){
+            $transactions = Transaction::with('student')->whereStatus('Disetujui')->orderBy('created_at')->get();
         }
 
         return view('transactions.index', compact('transactions'));
