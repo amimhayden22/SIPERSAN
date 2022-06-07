@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Student;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $students = Student::orderBy('name')->get();
+        $room = Room::where('user_id', Auth::user()->id)->first();
+        $students = Student::where('room_id', $room->id)->orderBy('name')->get();
 
         return view('transactions.create', compact('students'));
     }
@@ -82,7 +84,8 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $students = Student::orderBy('name')->get();
+        $room = Room::where('user_id', Auth::user()->id)->first();
+        $students = Student::where('room_id', $room->id)->orderBy('name')->get();
         $editTransaction = Transaction::find($id);
         if (is_null($editTransaction)) {
             return abort(404);
