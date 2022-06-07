@@ -42,7 +42,7 @@ class HomeController extends Controller
         $getStudents = [];
         foreach ($monthCustom as $value) {
             $getStudents[] = Transaction::whereStatus('Disetujui')
-                            ->whereMonth('created_at', $value)
+                            ->whereMonth('start_date', $value)
                             ->count();
         }
 
