@@ -70,7 +70,7 @@ Data Izin Santri
                                         <th>Batas Waktu Izin</th>
                                         <th>Alasan Izin</th>
                                         <th>Tanggal Kembali ke Pondok</th>
-                                        @if (!Auth::user()->role === 'Pengurus Pondok')
+                                        @if (Auth::user()->role != 'Pengurus Pondok')
                                         <th>Status</th>
                                         @endif
                                         <th>Aksi</th>
@@ -87,9 +87,23 @@ Data Izin Santri
                                         <td>{{ $transaction->start_date }}</td>
                                         <td>{{ $transaction->end_date }}</td>
                                         <td>{{ $transaction->description }}</td>
-                                        <td>{{ $transaction->return_date }}</td>
-                                        @if (!Auth::user()->role === 'Pengurus Pondok')
-                                        <td>{{ $transaction->status }}</td>
+                                        <td>
+                                            @if (is_null($transaction->return_date))
+                                                @if ($transaction->status)
+                                                Belum Pulang
+                                                @endif
+                                            @else
+                                            {{ $transaction->return_date }}
+                                            @endif
+                                        </td>
+                                        @if (Auth::user()->role != 'Pengurus Pondok')
+                                        <td>
+                                            @if (is_null($transaction->status))
+                                                Sedang diproses
+                                            @else
+                                                {{ $transaction->status }}
+                                            @endif
+                                        </td>
                                         @endif
                                         <td>
                                             @if (Auth::user()->role === 'Ketua Kamar' || Auth::user()->role === 'Pengurus Pondok')
