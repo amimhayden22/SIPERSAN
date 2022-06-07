@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Student;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -18,8 +19,12 @@ class TransactionController extends Controller
     {
         if(Auth::user()->role === 'Ketua Kamar'){
             $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at')->get();
-        }else{
+        }
+        if(Auth::user()->role === 'Pengurus Asrama'){
             $transactions = Transaction::with('student')->orderBy('created_at')->get();
+        }
+        if(Auth::user()->role === 'Pengurus Pondok'){
+            $transactions = Transaction::with('student')->whereStatus('Disetujui')->orderBy('created_at')->get();
         }
 
         return view('transactions.index', compact('transactions'));
@@ -32,7 +37,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $students = Student::orderBy('name')->get();
+        $room = Room::where('user_id', Auth::user()->id)->first();
+        $students = Student::where('room_id', $room->id)->orderBy('name')->get();
 
         return view('transactions.create', compact('students'));
     }
@@ -82,7 +88,8 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $students = Student::orderBy('name')->get();
+        $room = Room::where('user_id', Auth::user()->id)->first();
+        $students = Student::where('room_id', $room->id)->orderBy('name')->get();
         $editTransaction = Transaction::find($id);
         if (is_null($editTransaction)) {
             return abort(404);

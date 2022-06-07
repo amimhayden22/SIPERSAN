@@ -66,11 +66,13 @@ Data Izin Santri
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Santri</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
+                                        <th>Tanggal Mulai Izin</th>
+                                        <th>Batas Waktu Izin</th>
                                         <th>Alasan Izin</th>
-                                        <th>Batas Waktu Pulang Santri</th>
+                                        <th>Tanggal Kembali ke Pondok</th>
+                                        @if (!Auth::user()->role === 'Pengurus Pondok')
                                         <th>Status</th>
+                                        @endif
                                         <th>Aksi</th>
                                     </tr>
                                   </thead>
@@ -86,7 +88,9 @@ Data Izin Santri
                                         <td>{{ $transaction->end_date }}</td>
                                         <td>{{ $transaction->description }}</td>
                                         <td>{{ $transaction->return_date }}</td>
+                                        @if (!Auth::user()->role === 'Pengurus Pondok')
                                         <td>{{ $transaction->status }}</td>
+                                        @endif
                                         <td>
                                             @if (Auth::user()->role === 'Ketua Kamar' || Auth::user()->role === 'Pengurus Pondok')
                                                 <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
