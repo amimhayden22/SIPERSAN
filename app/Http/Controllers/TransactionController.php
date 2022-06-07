@@ -88,8 +88,13 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $room = Room::where('user_id', Auth::user()->id)->first();
-        $students = Student::where('room_id', $room->id)->orderBy('name')->get();
+        if (Auth::user()->role === 'Ketua Kamar') {
+            $room = Room::where('user_id', Auth::user()->id)->first();
+            $students = Student::where('room_id', $room->id)->orderBy('name')->get();
+        }else{
+            $students = Student::orderBy('name')->get();
+        }
+
         $editTransaction = Transaction::find($id);
         if (is_null($editTransaction)) {
             return abort(404);
