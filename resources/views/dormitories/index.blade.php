@@ -44,7 +44,7 @@ Data Asrama
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-users">
+                                <table class="table table-striped" id="table-1">
                                   <thead>
                                     <tr>
                                         <th>No</th>
