@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\Student;
+use App\Models\Dormitory;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,13 @@ class TransactionController extends Controller
     public function index()
     {
         if(Auth::user()->role === 'Ketua Kamar'){
-            $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at')->get();
+            $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         }
         if(Auth::user()->role === 'Pengurus Asrama'){
-            $transactions = Transaction::with('student')->orderBy('created_at')->get();
+            $transactions = Transaction::with('student')->orderBy('created_at', 'desc')->get();
         }
         if(Auth::user()->role === 'Pengurus Pondok'){
-            $transactions = Transaction::with('student')->whereStatus('Disetujui')->orderBy('created_at')->get();
+            $transactions = Transaction::with('student')->whereStatus('Disetujui')->orderBy('updated_at', 'desc')->get();
         }
 
         return view('transactions.index', compact('transactions'));
