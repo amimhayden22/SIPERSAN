@@ -26,13 +26,13 @@ class TransactionController extends Controller
             // $transactions = Transaction::with('student')->orderBy('created_at', 'desc')->get();
             $transactions = DB::select('SELECT
             transactions.id, students.name, transactions.start_date, transactions.end_date, transactions.description, transactions.return_date, transactions.status,
-            students.id as student_id, dormitories.user_id, transactions.updated_at
+            students.id as student_id, dormitories.user_id, transactions.created_at
             FROM `transactions`
             INNER JOIN students ON transactions.student_id=students.id
             INNER JOIN rooms ON students.room_id=rooms.id
             INNER JOIN dormitories ON rooms.dormitory_id=dormitories.id
             WHERE dormitories.user_id='.Auth::user()->id.'
-            ORDER BY transactions.updated_at DESC');
+            ORDER BY transactions.created_at DESC');
             // return $transactions;
         }
         if(Auth::user()->role === 'Pengurus Pondok'){
