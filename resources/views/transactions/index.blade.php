@@ -77,88 +77,170 @@ Data Izin Santri
                                     </tr>
                                   </thead>
                                   <tbody>
-                                      @php
-                                          $no = 1;
-                                      @endphp
-                                    @forelse ($transactions as $transaction)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $transaction->student->name }}</td>
-                                        <td>{{ $transaction->start_date }}</td>
-                                        <td>{{ $transaction->end_date }}</td>
-                                        <td>{{ $transaction->description }}</td>
-                                        <td>
-                                            @if (is_null($transaction->return_date))
-                                                @if ($transaction->status)
-                                                Belum Pulang
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @if (Auth::user()->role === 'Pengurus Asrama')
+                                        @forelse ($transactions as $transaction)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $transaction->name }}</td>
+                                                <td>{{ $transaction->start_date }}</td>
+                                                <td>{{ $transaction->end_date }}</td>
+                                                <td>{{ $transaction->description }}</td>
+                                                <td>
+                                                    @if (is_null($transaction->return_date))
+                                                        @if ($transaction->status)
+                                                        Belum Pulang
+                                                        @endif
+                                                    @else
+                                                    {{ $transaction->return_date }}
+                                                    @endif
+                                                </td>
+                                                @if (Auth::user()->role != 'Pengurus Pondok')
+                                                <td>
+                                                    @if (is_null($transaction->status))
+                                                        Sedang diproses
+                                                    @else
+                                                        {{ $transaction->status }}
+                                                    @endif
+                                                </td>
                                                 @endif
-                                            @else
-                                            {{ $transaction->return_date }}
+                                                <td>
+                                                    @if (Auth::user()->role === 'Ketua Kamar' || Auth::user()->role === 'Pengurus Pondok')
+                                                        <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                                                        @if (Auth::user()->role === 'Ketua Kamar')
+                                                            {{-- Hapus Data --}}
+                                                            <a href="#" class="btn btn-danger btn-sm"
+                                                            data-toggle="tooltip" data-original-title="Hapus Data"
+                                                            data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus izin santri bernama: <b>{{ $transaction->name }}</b>?"
+                                                            data-confirm-yes="event.preventDefault();
+                                                            document.getElementById('delete-portofolio-{{ $transaction->id }}').submit();"
+                                                            ><i class="fas fa-trash" aria-hidden="true"></i></a>
+                                                            <form id="delete-portofolio-{{ $transaction->id }}" action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display: none;">
+                                                                @csrf
+                                                                @method('delete')
+                                                            </form>
+                                                        @endif
+                                                    @endif
+                                                    @if (Auth::user()->role === 'Pengurus Asrama')
+                                                        <a href="#" class="btn btn-success btn-sm"
+                                                        data-toggle="tooltip" data-original-title="Menyetujui Santri Izin"
+                                                        onclick="event.preventDefault(); document.getElementById('update-status-disetujui{{ $transaction->id }}').submit()">
+                                                        <i class="fas fa-check-circle" aria-hidden="true"></i></a>
+                                                        <form id="update-status-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
+                                                            <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
+                                                            <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
+                                                            <input type="hidden" name="description" value="{{ $transaction->description }}">
+                                                            <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
+                                                            <input type="hidden" name="status" value="Disetujui">
+                                                        </form>
+                                                        <a href="#" class="btn btn-danger btn-sm"
+                                                        data-toggle="tooltip" data-original-title="Menolak Santri Izin"
+                                                        onclick="event.preventDefault(); document.getElementById('update-status-tidak-disetujui{{ $transaction->id }}').submit()">
+                                                        <i class="fas fa-times-circle" aria-hidden="true"></i></a>
+                                                        <form id="update-status-tidak-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
+                                                            <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
+                                                            <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
+                                                            <input type="hidden" name="description" value="{{ $transaction->description }}">
+                                                            <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
+                                                            <input type="hidden" name="status" value="Tidak Disetujui">
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center">Student permit list does not exist.</td>
+                                            </tr>
+                                        @endforelse
+                                    @else
+                                        @forelse ($transactions as $transaction)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $transaction->student->name }}</td>
+                                            <td>{{ $transaction->start_date }}</td>
+                                            <td>{{ $transaction->end_date }}</td>
+                                            <td>{{ $transaction->description }}</td>
+                                            <td>
+                                                @if (is_null($transaction->return_date))
+                                                    @if ($transaction->status)
+                                                    Belum Pulang
+                                                    @endif
+                                                @else
+                                                {{ $transaction->return_date }}
+                                                @endif
+                                            </td>
+                                            @if (Auth::user()->role != 'Pengurus Pondok')
+                                            <td>
+                                                @if (is_null($transaction->status))
+                                                    Sedang diproses
+                                                @else
+                                                    {{ $transaction->status }}
+                                                @endif
+                                            </td>
                                             @endif
-                                        </td>
-                                        @if (Auth::user()->role != 'Pengurus Pondok')
-                                        <td>
-                                            @if (is_null($transaction->status))
-                                                Sedang diproses
-                                            @else
-                                                {{ $transaction->status }}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        <td>
-                                            @if (Auth::user()->role === 'Ketua Kamar' || Auth::user()->role === 'Pengurus Pondok')
-                                                <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                                                @if (Auth::user()->role === 'Ketua Kamar')
-                                                    {{-- Hapus Data --}}
-                                                    <a href="#" class="btn btn-danger btn-sm"
-                                                    data-toggle="tooltip" data-original-title="Hapus Data"
-                                                    data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus izin santri bernama: <b>{{ $transaction->student->name }}</b>?"
-                                                    data-confirm-yes="event.preventDefault();
-                                                    document.getElementById('delete-portofolio-{{ $transaction->id }}').submit();"
-                                                    ><i class="fas fa-trash" aria-hidden="true"></i></a>
-                                                    <form id="delete-portofolio-{{ $transaction->id }}" action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display: none;">
+                                            <td>
+                                                @if (Auth::user()->role === 'Ketua Kamar' || Auth::user()->role === 'Pengurus Pondok')
+                                                    <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Edit Data"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                                                    @if (Auth::user()->role === 'Ketua Kamar')
+                                                        {{-- Hapus Data --}}
+                                                        <a href="#" class="btn btn-danger btn-sm"
+                                                        data-toggle="tooltip" data-original-title="Hapus Data"
+                                                        data-confirm="Data akan dihapus?|Apakah anda yakin akan menghapus izin santri bernama: <b>{{ $transaction->student->name }}</b>?"
+                                                        data-confirm-yes="event.preventDefault();
+                                                        document.getElementById('delete-portofolio-{{ $transaction->id }}').submit();"
+                                                        ><i class="fas fa-trash" aria-hidden="true"></i></a>
+                                                        <form id="delete-portofolio-{{ $transaction->id }}" action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                    @endif
+                                                @endif
+                                                @if (Auth::user()->role === 'Pengurus Asrama')
+                                                    <a href="#" class="btn btn-success btn-sm"
+                                                    data-toggle="tooltip" data-original-title="Menyetujui Santri Izin"
+                                                    onclick="event.preventDefault(); document.getElementById('update-status-disetujui{{ $transaction->id }}').submit()">
+                                                    <i class="fas fa-check-circle" aria-hidden="true"></i></a>
+                                                    <form id="update-status-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
                                                         @csrf
-                                                        @method('delete')
+                                                        @method('PUT')
+                                                        <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
+                                                        <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
+                                                        <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
+                                                        <input type="hidden" name="description" value="{{ $transaction->description }}">
+                                                        <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
+                                                        <input type="hidden" name="status" value="Disetujui">
+                                                    </form>
+                                                    <a href="#" class="btn btn-danger btn-sm"
+                                                    data-toggle="tooltip" data-original-title="Menolak Santri Izin"
+                                                    onclick="event.preventDefault(); document.getElementById('update-status-tidak-disetujui{{ $transaction->id }}').submit()">
+                                                    <i class="fas fa-times-circle" aria-hidden="true"></i></a>
+                                                    <form id="update-status-tidak-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
+                                                        <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
+                                                        <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
+                                                        <input type="hidden" name="description" value="{{ $transaction->description }}">
+                                                        <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
+                                                        <input type="hidden" name="status" value="Tidak Disetujui">
                                                     </form>
                                                 @endif
-                                            @endif
-                                            @if (Auth::user()->role === 'Pengurus Asrama')
-                                                <a href="#" class="btn btn-success btn-sm"
-                                                data-toggle="tooltip" data-original-title="Menyetujui Santri Izin"
-                                                onclick="event.preventDefault(); document.getElementById('update-status-disetujui{{ $transaction->id }}').submit()">
-                                                <i class="fas fa-check-circle" aria-hidden="true"></i></a>
-                                                <form id="update-status-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
-                                                    <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
-                                                    <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
-                                                    <input type="hidden" name="description" value="{{ $transaction->description }}">
-                                                    <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
-                                                    <input type="hidden" name="status" value="Disetujui">
-                                                </form>
-                                                <a href="#" class="btn btn-danger btn-sm"
-                                                data-toggle="tooltip" data-original-title="Menolak Santri Izin"
-                                                onclick="event.preventDefault(); document.getElementById('update-status-tidak-disetujui{{ $transaction->id }}').submit()">
-                                                <i class="fas fa-times-circle" aria-hidden="true"></i></a>
-                                                <form id="update-status-tidak-disetujui{{ $transaction->id }}" action="{{ route('transactions.update', $transaction->id) }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="student_id" value="{{ $transaction->student_id }}">
-                                                    <input type="hidden" name="start_date" value="{{ $transaction->start_date }}">
-                                                    <input type="hidden" name="end_date" value="{{ $transaction->end_date }}">
-                                                    <input type="hidden" name="description" value="{{ $transaction->description }}">
-                                                    <input type="hidden" name="return_date" value="{{ $transaction->return_date }}">
-                                                    <input type="hidden" name="status" value="Tidak Disetujui">
-                                                </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="8" class="text-center">Student permit list does not exist.</td>
-                                    </tr>
-                                    @endforelse
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center">Student permit list does not exist.</td>
+                                        </tr>
+                                        @endforelse
+                                    @endif
                                   </tbody>
                                 </table>
                             </div>
