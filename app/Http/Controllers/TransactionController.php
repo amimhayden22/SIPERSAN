@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Dormitory;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -22,7 +23,16 @@ class TransactionController extends Controller
             $transactions = Transaction::with('student')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         }
         if(Auth::user()->role === 'Pengurus Asrama'){
-            $transactions = Transaction::with('student')->orderBy('created_at', 'desc')->get();
+            // $transactions = Transaction::with('student')->orderBy('created_at', 'desc')->get();
+            $transactions = DB::select('SELECT
+            transactions.id, students.name, transactions.start_date, transactions.end_date, transactions.description, transactions.return_date, transactions.status,
+            students.id as student_id, dormitories.user_id
+            FROM `transactions`
+            INNER JOIN students ON transactions.student_id=students.id
+            INNER JOIN rooms ON students.room_id=rooms.id
+            INNER JOIN dormitories ON rooms.dormitory_id=dormitories.id
+            WHERE dormitories.user_id='.Auth::user()->id);
+            // return $transactions;
         }
         if(Auth::user()->role === 'Pengurus Pondok'){
             $transactions = Transaction::with('student')->whereStatus('Disetujui')->orderBy('updated_at', 'desc')->get();
